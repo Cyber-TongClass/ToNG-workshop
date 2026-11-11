@@ -27,6 +27,7 @@ def train():
         loss = torch.nn.functional.cross_entropy(model(x), y)
         loss.backward()
         optimizer.step()
+    print("Training complete; evaluating the local model next.")
     output = ROOT / "artifacts/model.npz"
     output.parent.mkdir(exist_ok=True)
     np.savez(output, **{name: value.detach().numpy() for name, value in model.state_dict().items()})
